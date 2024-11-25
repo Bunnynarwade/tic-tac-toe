@@ -3,6 +3,7 @@ let reset = document.querySelector("#reset-btn")
 let container = document.querySelector(".container")
 let afterwin = document.querySelector(".win1");
 let turn0 = true;//players turn
+let count = 0;
 const winpattern = [
     [0,1,2],
     [0,4,8],
@@ -19,11 +20,14 @@ let disable = (posi1) =>{
     })
     afterwinfn(posi1)
 }
-
+let draw = () =>{
+    container.classList.add("hide");
+    afterwin.classList.remove("win1");
+    afterwin.innerText = `DRAW`;
+}
 let afterwinfn = (posi1) =>{
     container.classList.add("hide");
     afterwin.classList.remove("win1");
-    afterwin.classList.add("win2");
     afterwin.innerText = `WINNER ${posi1}`;
 }
 boxes.forEach((box)=>{
@@ -38,7 +42,13 @@ boxes.forEach((box)=>{
             turn0 = true;
         }
         box.disabled = true;
-        winner();
+        count++;
+        if(count === 9){
+            draw();
+        }
+        else{
+            winner();
+        }
     })
 })
 
